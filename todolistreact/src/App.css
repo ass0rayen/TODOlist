@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'RaleWay';
+  src: url('../public/Raleway-VariableFont_wght.ttf') format('truetype'), 
+       url('../public/Raleway-VariableFont_wght.ttf') format('truetype');   
+}
+*{
+  margin:0;
+  font-family: "RaleWay";
+}
+.sideBar{
+  background:#fafafa;
+  width: 15vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.all{
+  width: 100%;
+  height: 100vh;
+}
+.sideButt{
+  background-color: transparent;
+  border: 0;
+  height: 5%;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 2rem;
+  transition: 0.2s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sideButt:hover{
+  background-color: bisque;
+}
