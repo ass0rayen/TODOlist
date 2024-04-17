@@ -1,9 +1,10 @@
-const SideButton = (props)=>{
+const Ibutton =(props)=>{
     return(
-    <>
-    <button className="sideButt" >
+        <>
+        <button onClick={props.onClick} className= {"sideButt " + props.class} >
         {props.icon}{props.name}
     </button>
-    </>)
+        </>
+    )
 }
-export default SideButton
+export default Ibutton

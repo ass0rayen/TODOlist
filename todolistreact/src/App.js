@@ -1,10 +1,12 @@
 import './App.css';
-import Sidebar from './sidebar';
+import RestOfPage from './restofpage';
+import Sidebar from './sidebar';  
 
 function App() {
   return (
     <div className='all'>
       <Sidebar></Sidebar>
+      <RestOfPage/>
     </div>
   );
 }

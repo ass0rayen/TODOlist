@@ -1,4 +1,4 @@
-import SideButton from "./button"
+import SideButton from "./sideButton"
 import {LightOutlined,PriorityHighOutlined,CalendarTodayOutlined,CheckOutlined,HistoryOutlined} from '@mui/icons-material';
 
 const Sidebar= ()=>{

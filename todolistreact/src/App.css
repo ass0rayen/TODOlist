@@ -57,3 +57,26 @@ width: 70%;
 .sideButt:hover > .icon5{
   color: black;
 }
+
+.restOfpage{
+  margin-left: 5rem;
+  margin-top: 3rem;
+  width: 100%;
+}
+.addtask{
+  width: 10rem;
+  margin-bottom: 2rem;
+}
+button.sideButt.changePage{
+  width: 10px;
+}
+.pagination{
+  display: flex;
+  align-items: center;
+  margin: 0;
+  justify-content: space-around;
+}
+.taskList * {
+  border:0!important;
+  box-shadow: none
+}
