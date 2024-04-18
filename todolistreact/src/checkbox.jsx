@@ -1,13 +1,19 @@
 import { useState } from "react"
 
 const CheckBox=(props)=>{
-    const [isChecked,setIsChecked] = useState(0)
+    var index = props.index
+    var field = props.field.toString()
     return(
         <>
-        <button onClick={()=>setIsChecked((prev)=>(!prev))}  className="changePage" style={{
+        <button onClick={()=>{
+            //console.log(index,field);
+            props.setIndex(()=>{return(
+            {index,field
+            }
+        )})}}  className="checkBox" style={{
             backgroundColor:"black!important"
         }}>
-            {isChecked?props.icon:props.icon2}
+            {props.checked?props.icon:props.icon2}
         </button>
         </>
     )

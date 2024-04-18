@@ -64,12 +64,16 @@ width: 70%;
   width: 100%;
 }
 .addtask{
-  width: 6rem;
-  margin-bottom: 2rem;
+  min-width: fit-content;
+  width: 5.5rem;
   color: #157aff;
-  background-color: #e3f1ff;
   height: 3rem;
   border-radius: 12px;
+  margin:0;
+}
+.addtask:hover{
+  background-color: #e3f1ff;
+
 }
 button.sideButt.changePage{
   width: 10px;
@@ -77,7 +81,7 @@ button.sideButt.changePage{
 .pagination{
   display: flex;
     margin: 0;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     width: 80%;
 }
@@ -95,8 +99,17 @@ button.sideButt.changePage{
   cursor: pointer;
   color: rgb(0 0 0 / 24%);
 }
+.checkBox{
+  background-color: transparent;
+  transition: 10ms ease-in;
+  cursor: pointer;
+  color: rgb(0 0 0 / 24%);
+}
+.checkBox:hover > svg{
+  color: #157aff!important;
+}
 .changePage:hover{
-  color: #DAA520;
+  color: #157aff!important;
 }
 .header{
   display: flex;
@@ -105,4 +118,25 @@ button.sideButt.changePage{
 }
 .table{
   width: 60%;
+}
+.todayPage{
+  width: 50%;
+}
+h3{
+  margin-top:2rem;
+}
+h1{
+  margin-bottom:3rem
+}
+.taskName{
+  font-weight: bold;
+}
+.time{
+  color: #157aff;
+}
+td{
+  padding-left: 0px!important;
+  padding-right: 0px!important;
+  padding-bottom: 8px!important;
+  padding-top: 8px!important;
 }
