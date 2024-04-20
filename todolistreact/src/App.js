@@ -3,88 +3,59 @@ import RestOfPage from "./restofpage";
 import Sidebar from "./sidebar";
 import data from "./data.json";
 import { useEffect, useState } from "react";
+import { Calendar } from "antd";
 function App() {
   const [Idata, setIdata] = useState(data);
   const [newTask, addNewTask] = useState([]);
-  const [todayTasks, setTodayTasks] = useState(
-    Idata.filter((item) => {
-      let y = new Date();
-      let yday = y.getDate();
-      let ymonth = y.getMonth();
-      let x = item.date;
-      x = new Date(parseInt(x));
-      let xday = x.getDate();
-      let xmonth = x.getMonth();
-
-      if (xday == yday && ymonth == xmonth) {
-        return item;
-      }
-    })
-  );
-  useEffect(() => {
-    addNewTask([]);
-  }, [Idata]);
+  const [activePage, setActivePage] = useState(0);
+  const [todayDate,setTodayDate] = useState(new Date().getTime());
+  const [nOfTodayTasks, setNOfTodayTasks] = useState(0);
+  const [nOfImportantTasks, setNOfImportantTasks] = useState(0);
+  const [nOfcompletedTasks, setNOfCompletedTasks] = useState(0);
   useEffect(() => {
     if (newTask.length !== 0) {
       const newTaskWithID = {
         ...newTask[0],
         id: Idata.length + 1,
       };
-      let y = new Date();
+      setIdata((prevData) => [...prevData, newTaskWithID]);
+    }
+  }, [newTask]);
+
+  useEffect(() => {
+    setNOfCompletedTasks(Idata.filter((item) => item.done).length);
+    setNOfImportantTasks(Idata.filter((item) => item.important).length);
+    setNOfTodayTasks(()=>Idata.filter((item) => {
+      let y = new Date(todayDate);
       let yday = y.getDate();
       let ymonth = y.getMonth();
-      let x = newTask[0].date;
+      let x = item.date;
       x = new Date(parseInt(x));
       let xday = x.getDate();
       let xmonth = x.getMonth();
       if (xday == yday && ymonth == xmonth) {
-        setTodayTasks((prev) => [...prev, newTaskWithID]);
-      } else {
-        console.log("not",newTaskWithID)
-        setIdata((prevData) => [...prevData, newTaskWithID]);
-      }
+         return item
     }
-  }, [newTask]);
-  useEffect(() => {
-    let newData = [...Idata];
-    todayTasks.map((item) => {
-      newData[item.id - 1] = item;
-    });
-    setIdata(() => newData);
-    //setCompletedTasks(()=>)
-  }, [todayTasks]);
-  
-  useEffect(()=>{    
-    setCompletedTasks(() => Idata.filter((item) => item.done));
-    setImportantTasks(() => Idata.filter((item) => item.important));
-  },[Idata])
-  const [importantTasks, setImportantTasks] = useState(
-    Idata.filter((item) => item.important)
-  );
-  const [completedTasks, setCompletedTasks] = useState(
-    Idata.filter((item) => item.done)
-  );
-  useEffect(() => {
-    let newData = [...Idata];
-    importantTasks.map((item) => {
-      newData[item.id - 1] = item;
-    });
-    setIdata(() => newData);
-    //setCompletedTasks(()=>)
-  }, [importantTasks]);
+    }).length)
+  }, [Idata]);
   return (
     <div className="all">
       <Sidebar
-        todayTasks={todayTasks}
-        importantTasks={importantTasks}
-        completedTasks={completedTasks}
+        setActivePage={setActivePage}
+        nOfTodayTasks={nOfTodayTasks}
+        nOfcompletedTasks={nOfcompletedTasks}
+        nOfImportantTasks={nOfImportantTasks}
       ></Sidebar>
       <RestOfPage
-      importantTasks = {importantTasks}
+      nOfTodayTasks={nOfTodayTasks}
+      nOfcompletedTasks={nOfcompletedTasks}
+      nOfImportantTasks={nOfImportantTasks}
+      todayDate = {todayDate}
+      setTodayDate = {setTodayDate}
+        activePage={activePage}
         addNewTask={addNewTask}
-        setTasks={setTodayTasks}
-        setImportantTasks={setImportantTasks}
-        todayTasks={todayTasks}
+        setIdata={setIdata}
+        fdata={Idata}
       />
     </div>
   );

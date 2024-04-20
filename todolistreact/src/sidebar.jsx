@@ -4,11 +4,10 @@ import {LightOutlined,PriorityHighOutlined,CalendarTodayOutlined,CheckOutlined,H
 const Sidebar= (props)=>{
     return(
         <div className="sideBar">
-            <><SideButton name="Today" icon = {<LightOutlined className="icon icon1"/>} number = {props.todayTasks.length}></SideButton></>
-            <><SideButton icon = {<PriorityHighOutlined className="icon icon2" />} number = {props.importantTasks.length} name="Important"></SideButton></>
-            <><SideButton icon = {<CalendarTodayOutlined className="icon icon3"/>} name="Calendar"></SideButton></>
-            <><SideButton icon={<CheckOutlined className="icon icon4" />} number={props.completedTasks.length} name="Completed"></SideButton></>
-            <><SideButton icon ={<HistoryOutlined className="icon icon5" />} name="today"></SideButton></>
+            <><SideButton onClick={()=>props.setActivePage(0)} name="Today" icon = {<LightOutlined className="icon icon1"/>} number = {props.nOfTodayTasks}></SideButton></>
+            <><SideButton onClick={()=>props.setActivePage(1)} icon = {<PriorityHighOutlined className="icon icon2" />} number = {props.nOfImportantTasks} name="Important"></SideButton></>
+            <><SideButton  onClick={()=>props.setActivePage(2)} icon = {<CalendarTodayOutlined className="icon icon3"/>} name="Calendar"></SideButton></>
+            <><SideButton onClick={()=>props.setActivePage(3)} icon={<CheckOutlined className="icon icon4" />} number={props.nOfcompletedTasks} name="Completed"></SideButton></>
         </div>
     )
 }

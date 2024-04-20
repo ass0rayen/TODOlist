@@ -1,7 +1,6 @@
 @font-face {
   font-family: 'RaleWay';
   src: url('../public/Raleway-VariableFont_wght.ttf') format('truetype'), 
-       url('../public/Raleway-VariableFont_wght.ttf') format('truetype');   
 }
 .all{
   width: 100%;
@@ -11,6 +10,9 @@
 *{
   margin:0;
   font-family: "RaleWay";
+}
+button{
+  
   transition: 0.2s ease-in;
 }
 .sideBar{
@@ -126,11 +128,19 @@ button.sideButt.changePage{
   border-right:1px solid rgb(209, 209, 209);
   width: 60%;
 }
-.calendar{
-  width: 40%;
-  display: flex;
+.calendar *{
+  transition: none;
 }
 
+g{
+  transition: none!important;
+}
+.calendar{
+  border-bottom:1px solid rgb(209, 209, 209);
+  display: flex;
+  flex-direction: column;
+  
+}
 h1{
   margin-bottom:3rem
 }
@@ -140,7 +150,7 @@ h1{
 .time{
   color: #157aff;
 }
-td{
+.taskList td{
   width: auto;
   padding-left: 0px!important;
   padding-right: 0px!important;
@@ -157,4 +167,7 @@ td{
 }
 input{
   padding: 5px;
+}
+li{
+  font-size: large;
 }

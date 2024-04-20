@@ -1,12 +1,11 @@
 import { useState } from "react"
 
 const CheckBox=(props)=>{
-    var index = props.index
+    var index = props.index-1
     var field = props.field.toString()
     return(
         <>
         <button onClick={()=>{
-            //console.log(index,field);
             props.setIndex(()=>{return(
             {index,field
             }

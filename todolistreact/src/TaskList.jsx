@@ -40,6 +40,7 @@ const TaskList = (props) => {
   const addTaskModal = () => {
     setModalIsOpen(true);
   };
+  
   const handleAddTask = () => {
     try {
       if (!regex.test(newTask.taskName)) {
@@ -66,34 +67,45 @@ const TaskList = (props) => {
     setModalIsOpen(false);
   };
   function changeData() {
-    var tdata = [...data];
-    if (indexObj.field == "done") {
-      tdata[indexObj.index].done = !tdata[indexObj.index].done;
-    } else if (indexObj.field == "important") {
-      tdata[indexObj.index].important = !tdata[indexObj.index].important;
-    }
-    setData(() => {
-      return tdata;
-    });
+    props.setIdata((prev)=>{
+      let nd = [...prev]
+      if(indexObj.field == "done"){
+        nd[indexObj.index].done = !nd[indexObj.index].done
+        if(nd[indexObj.index].done){
+          nd[indexObj.index].dateCompleted = new Date().getTime()
+        }
+        else{
+          nd[indexObj.index].dateCompleted = ""
+        }
+      }
+      else if(indexObj.field == "important"){
+        nd[indexObj.index].important = !nd[indexObj.index].important
+      }
+      return nd
+    })
     setIndex(() => ({ index: -1, field: "" }));
   }
   useEffect(() => {
     if (indexObj.index != -1) {
-      changeData(indexObj);
+      changeData();
     }
   }, [indexObj]);
-  useEffect(() => {
-    props.setTasks(data);
-  }, [data]);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedTasks, setDisplayedTasks] = useState([]);
   useEffect(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    if(data.length !=0){
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const tasksToShow = data.slice(startIndex, endIndex);
-    setDisplayedTasks(tasksToShow);
-  }, [currentPage,data]);
-
+    setDisplayedTasks(tasksToShow);}
+    else{
+      setDisplayedTasks([])
+    }
+  }
+  , [currentPage,data]);
+useEffect(()=>{
+  setData(props.Idata)
+},[props.Idata])
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -121,10 +133,12 @@ const TaskList = (props) => {
   };
   return (
     <div className="taskList">
+      {props.type=="today"?
       <div className="header">
         <h1>Welcome Back</h1>
-      </div>
-
+      </div>:<div className="header">
+        <h1>{props.name}</h1>
+      </div>}
       <div
         style={{
           width: "80%",
@@ -133,7 +147,7 @@ const TaskList = (props) => {
           justifyContent: "space-between",
         }}
       >
-        <h3>Today's Tasks</h3>
+       {props.type=="today"? <h3>{props.name} Tasks</h3>:""}
         <Ibutton
           name="Add Task"
           class="addtask"
@@ -211,6 +225,7 @@ const TaskList = (props) => {
           </div>
         </Modal>
       </div>
+      {displayedTasks.length>0?
       <TableContainer className="table">
         <Table>
           <TableHead>
@@ -232,7 +247,7 @@ const TaskList = (props) => {
                     checked={item.done}
                     field={"done"}
                     setIndex={setIndex}
-                    index={index + ITEMS_PER_PAGE * (currentPage - 1)}
+                    index={item.id}
                     icon2={<CheckBoxOutlineBlankOutlined />}
                     icon={<CheckBoxOutlined></CheckBoxOutlined>}
                   />
@@ -258,24 +273,26 @@ const TaskList = (props) => {
                       new Date(parseInt(item.date)).getMinutes()
                     ).padStart(2, "0")}
                   </p>
+                  {props.name=="completed"?<p>Completed On {new Date(parseInt(item.dateCompleted)).toDateString()}</p>:""}
                 </TableCell>
                 <TableCell>
-                  {" "}
                   <CheckBox
-                    clas
                     checked={!item.important}
                     field={"important"}
                     setIndex={setIndex}
-                    index={index + ITEMS_PER_PAGE * (currentPage - 1)}
+                    index={item.id}
                     icon2={<StarOutlined sx={{ color: "#FFD700" }} />}
                     icon={<StarOutlineOutlined></StarOutlineOutlined>}
                   />
                 </TableCell>
               </TableRow>
-            ))}
+            ))
+            }
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>:
+      <div style={{    height: "50%"}}><p> No {props.important?"important":""} tasks to do this Day</p></div>
+      }
       <div className="pagination">
         <div
           style={{
