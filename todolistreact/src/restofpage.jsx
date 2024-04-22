@@ -49,9 +49,7 @@ const RestOfPage = (props) => {
         );
       });
       return nd.length >= 1 && nd.length < 6 ? (
-        <ul style={{ color: "green" }}>
-          <li></li>
-        </ul>
+          nd.map((item)=>(<div style={{backgroundColor:(parseInt(item.time/(10**6))),width:"100%"}}>TST</div>))
       ) : nd.length >= 6 && nd.length < 13 ? (
         <ul style={{ color: "#9500ff" }}>
           <li></li>
