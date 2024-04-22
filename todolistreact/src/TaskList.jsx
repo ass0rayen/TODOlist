@@ -6,7 +6,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import CheckBox from "./checkbox";
 import { Modal } from "antd";
 import {
@@ -20,7 +19,6 @@ import {
   ArrowForwardIosOutlined,
   ArrowBackIosNewOutlined,
   AddOutlined,
-  PlaylistAddCircleOutlined,
 } from "@mui/icons-material";
 
 const ITEMS_PER_PAGE = 8;
@@ -47,7 +45,7 @@ const TaskList = (props) => {
         alert("something is wrong in the task name ");
         return false;
       }
-      if (newTask.location != 0 && !regex.test(newTask.location)) {
+      if (newTask.location !== 0 && !regex.test(newTask.location)) {
         alert("sometthing is wrong in the location name");
         return false;
       }
@@ -66,34 +64,35 @@ const TaskList = (props) => {
   const handleCancel = () => {
     setModalIsOpen(false);
   };
-  function changeData() {
-    props.setIdata((prev)=>{
-      let nd = [...prev]
-      if(indexObj.field == "done"){
-        nd[indexObj.index].done = !nd[indexObj.index].done
-        if(nd[indexObj.index].done){
-          nd[indexObj.index].dateCompleted = new Date().getTime()
-        }
-        else{
-          nd[indexObj.index].dateCompleted = ""
-        }
+  
+    useEffect(() => {
+      function changeData() {
+        props.setIdata((prev)=>{
+          let nd = [...prev]
+          if(indexObj.field === "done"){
+            nd[indexObj.index].done = !nd[indexObj.index].done
+            if(nd[indexObj.index].done){
+              nd[indexObj.index].dateCompleted = new Date().getTime()
+            }
+            else{
+              nd[indexObj.index].dateCompleted = ""
+            }
+          }
+          else if(indexObj.field === "important"){
+            nd[indexObj.index].important = !nd[indexObj.index].important
+          }
+          return nd
+        })
+        setIndex(() => ({ index: -1, field: "" }));
       }
-      else if(indexObj.field == "important"){
-        nd[indexObj.index].important = !nd[indexObj.index].important
+      if (indexObj.index !== -1) {
+        changeData();
       }
-      return nd
-    })
-    setIndex(() => ({ index: -1, field: "" }));
-  }
-  useEffect(() => {
-    if (indexObj.index != -1) {
-      changeData();
-    }
-  }, [indexObj]);
+    }, [indexObj,props]);
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedTasks, setDisplayedTasks] = useState([]);
   useEffect(() => {
-    if(data.length !=0){
+    if(data.length !==0){
       const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const tasksToShow = data.slice(startIndex, endIndex);
@@ -133,7 +132,7 @@ useEffect(()=>{
   };
   return (
     <div className="taskList">
-      {props.type=="today"?
+      {props.type==="today"?
       <div className="header">
         <h1>Welcome Back</h1>
       </div>:<div className="header">
@@ -147,7 +146,7 @@ useEffect(()=>{
           justifyContent: "space-between",
         }}
       >
-       {props.type=="today"? <h3>{props.name} Tasks</h3>:""}
+       {props.type==="today"? <h3>{props.name} Tasks</h3>:""}
         <Ibutton
           name="Add Task"
           class="addtask"
@@ -273,7 +272,7 @@ useEffect(()=>{
                       new Date(parseInt(item.date)).getMinutes()
                     ).padStart(2, "0")}
                   </p>
-                  {props.name=="completed"?<p>Completed On {new Date(parseInt(item.dateCompleted)).toDateString()}</p>:""}
+                  {props.name==="completed"?<p>Completed On {new Date(parseInt(item.dateCompleted)).toDateString()}</p>:""}
                 </TableCell>
                 <TableCell>
                   <CheckBox

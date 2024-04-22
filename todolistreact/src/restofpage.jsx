@@ -1,6 +1,6 @@
 import TodayPage from "./todayPage";
 import { useEffect, useState } from "react";
-import { Badge, Calendar, Modal } from "antd";
+import { Calendar, Modal } from "antd";
 import ImportantPage from "./important";
 import CompletedPage from "./completed";
 import { PieChart } from "@mui/x-charts/PieChart";
@@ -9,7 +9,7 @@ const RestOfPage = (props) => {
   const [nCToday,setnCToday] = useState(0)
   function selectDate(info) {
     props.setTodayDate(info.toDate().getTime());
-    if (props.activePage == 2) {
+    if (props.activePage === 2) {
       openModal(true);
     }
   }
@@ -27,8 +27,8 @@ const RestOfPage = (props) => {
         let xday = x.getDate();
         let xmonth = x.getMonth();
         
-        if (xday == yday && ymonth == xmonth) {
-          if(item.done==true){
+        if (xday === yday && ymonth === xmonth) {
+          if(item.done===true){
             setnCToday(prev=>prev+1)
           }
           return item;
@@ -44,12 +44,14 @@ const RestOfPage = (props) => {
     if (info.type === "date") {
       let nd = data.filter((item) => {
         return (
-          new Date(parseInt(item.date)).getMonth() == value.month() &&
-          new Date(parseInt(item.date)).getDate() == value.date()
+          new Date(parseInt(item.date)).getMonth() === value.month() &&
+          new Date(parseInt(item.date)).getDate() === value.date()
         );
       });
       return nd.length >= 1 && nd.length < 6 ? (
-          nd.map((item)=>(<div style={{backgroundColor:(parseInt(item.time/(10**6))),width:"100%"}}>TST</div>))
+        <ul style={{ color: "green" }}>
+        <li></li>
+      </ul>
       ) : nd.length >= 6 && nd.length < 13 ? (
         <ul style={{ color: "#9500ff" }}>
           <li></li>
@@ -64,7 +66,6 @@ const RestOfPage = (props) => {
     }
   }
   useEffect(() => {
-    console.log(todayTasks);
   }, [todayTasks]);
   return (
     <div className="restOfpage">
@@ -78,15 +79,15 @@ const RestOfPage = (props) => {
             <h3>Tasks On this Day : </h3>
             <ul>
               {todayTasks.map((item) => (
-                <li
+                <li  key={item.id} 
                   style={
-                    item.dateCompleted != ""
+                    item.dateCompleted !== ""
                       ? { textDecoration: "line-through" }
                       : {}
                   }
                 >
                   {item.taskName} ,{" "}
-                  {item.dateCompleted != ""
+                  {item.dateCompleted !== ""
                     ? new Date(parseInt(item.dateCompleted)).toDateString() +
                       "    ,    "
                     : ""}
@@ -99,7 +100,7 @@ const RestOfPage = (props) => {
           <p>No tasks On this Day</p>
         )}
       </Modal>
-      {props.activePage == 0 && (
+      {props.activePage === 0 && (
         <TodayPage
           todayDate={props.todayDate}
           fdata={props.fdata}
@@ -107,7 +108,7 @@ const RestOfPage = (props) => {
           addNewTask={props.addNewTask}
         />
       )}
-      {props.activePage == 1 && (
+      {props.activePage === 1 && (
         <ImportantPage
           fdata={props.fdata}
           setIdata={props.setIdata}
@@ -115,7 +116,7 @@ const RestOfPage = (props) => {
           todayDate={props.todayDate}
         ></ImportantPage>
       )}
-      {props.activePage == 3 && (
+      {props.activePage === 3 && (
         <CompletedPage
           fdata={props.fdata}
           setIdata={props.setIdata}
@@ -125,16 +126,16 @@ const RestOfPage = (props) => {
       )}
       <div
         className="calendar"
-        style={props.activePage == 2 ? { width: "90%" } : { width: "40%" }}
+        style={props.activePage === 2 ? { width: "90%" } : { width: "40%" }}
       >
         <Calendar
           onSelect={selectDate}
           cellRender={CellRender}
-          fullscreen={props.activePage == 2 ? true : false}
+          fullscreen={props.activePage === 2 ? true : false}
           className="calendar"
           style={{ width: "100%" }}
         ></Calendar>
-        {props.activePage!=2 &&<div style={{
+        {props.activePage!==2 &&<div style={{
           height: "50%",
           width: "100%",
           }}>

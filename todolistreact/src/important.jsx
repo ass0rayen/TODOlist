@@ -13,7 +13,7 @@ const ImportantPage = (props)=>{
           x = new Date(parseInt(x));
           let xday = x.getDate();
           let xmonth = x.getMonth();
-            return (item.important==true && xday == yday && ymonth == xmonth)
+            return (item.important===true && xday === yday && ymonth === xmonth)
 
         })))
     },[props.fdata,props.todayDate])

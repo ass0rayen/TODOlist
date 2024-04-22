@@ -3,7 +3,6 @@ import RestOfPage from "./restofpage";
 import Sidebar from "./sidebar";
 import data from "./data.json";
 import { useEffect, useState } from "react";
-import { Calendar } from "antd";
 function App() {
   const [Idata, setIdata] = useState(data);
   const [newTask, addNewTask] = useState([]);
@@ -20,7 +19,7 @@ function App() {
       };
       setIdata((prevData) => [...prevData, newTaskWithID]);
     }
-  }, [newTask]);
+  }, [newTask,Idata.length]);
 
   useEffect(() => {
     setNOfCompletedTasks(Idata.filter((item) => item.done).length);
@@ -33,11 +32,11 @@ function App() {
       x = new Date(parseInt(x));
       let xday = x.getDate();
       let xmonth = x.getMonth();
-      if (xday == yday && ymonth == xmonth) {
+      if (xday === yday && ymonth === xmonth) {
          return item
     }
     }).length)
-  }, [Idata]);
+  }, [Idata,todayDate]);
   return (
     <div className="all">
       <Sidebar

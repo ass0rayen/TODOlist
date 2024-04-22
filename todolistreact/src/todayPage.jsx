@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react"
 import TaskList from "./TaskList"
-import Ibutton from "./button"
-import SideButton from "./sideButton"
-import { AddOutlined } from "@mui/icons-material"
 const TodayPage = (props)=>{
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const [todayTasks,setTodayTasks] = useState([])
@@ -15,7 +12,7 @@ const TodayPage = (props)=>{
           x = new Date(parseInt(x));
           let xday = x.getDate();
           let xmonth = x.getMonth();
-          if (xday == yday && ymonth == xmonth) {
+          if (xday === yday && ymonth === xmonth) {
              return item
         }
         }))
