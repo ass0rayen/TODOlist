@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/TODOlist/static/css/main.51c7f9e7.css",
-    "main.js": "/TODOlist/static/js/main.1244dcce.js",
+    "main.js": "/TODOlist/static/js/main.7b80881e.js",
     "static/media/Raleway-VariableFont_wght.ttf": "/TODOlist/static/media/Raleway-VariableFont_wght.e14d84ccec6be3ff19e3.ttf",
     "index.html": "/TODOlist/index.html",
     "main.51c7f9e7.css.map": "/TODOlist/static/css/main.51c7f9e7.css.map",
-    "main.1244dcce.js.map": "/TODOlist/static/js/main.1244dcce.js.map"
+    "main.7b80881e.js.map": "/TODOlist/static/js/main.7b80881e.js.map"
   },
   "entrypoints": [
     "static/css/main.51c7f9e7.css",
-    "static/js/main.1244dcce.js"
+    "static/js/main.7b80881e.js"
   ]
 }
