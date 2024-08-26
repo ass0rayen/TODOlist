@@ -4,6 +4,7 @@ import { Calendar, Modal } from "antd";
 import ImportantPage from "./important";
 import CompletedPage from "./completed";
 import { PieChart } from "@mui/x-charts/PieChart";
+import dayjs from "dayjs";
 const RestOfPage = (props) => {
   const [ModalIsOpen, openModal] = useState(false);
   const [nCToday,setnCToday] = useState(0)
@@ -129,6 +130,7 @@ const RestOfPage = (props) => {
         style={props.activePage === 2 ? { width: "90%" } : { width: "40%" }}
       >
         <Calendar
+          defaultValue={dayjs(new Date(2024, 3, 1))}
           onSelect={selectDate}
           cellRender={CellRender}
           fullscreen={props.activePage === 2 ? true : false}
